@@ -22,7 +22,12 @@ def join():
         subname = request.form['usersubname']
         university = request.form.get('select1')
         email = request.form['usermail']
+        confirm = request.form['confirm-pw']
 
+        #비밀번호 확인
+        if pw != confirm:
+            return redirect(url_for('join'))
+            
         # 아이디 중복 방지
         if DB.IDcheck(id) :
             return redirect(url_for('join'))
