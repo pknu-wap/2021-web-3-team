@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='1.jpg')}}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="{{url_for('main')}}"></form>
+    <div class="container">
+        <header>
+            <p>다온</p>
+            <ul>
+                <li>
+                    <a href="#">게시판
+                </a> </li>
+                {% if name %}
+                <li>
+                    <a href="#">{{name}}
+                </a></li>
+                <li>
+                    <a href="/logout">로그아웃
+                </a></li>
+                {% else %}
+                <li> 
+                    <a href="/join">회원가입
+                </a></li>
+                <li>
+                    <a href="/login">로그인
+                </a></li>
+                {% endif %}
+            </ul>
+
+        </header>
+        <section>
+            <p>
+                다온
+            </p>
+            <p>
+                PKNU&KYONG SUNG
+            </p>
+            <p>
+                안녕하세용가리튀김 여기는 부경대 경성대 에브리타임을 짬뽕한 페이지 입니다<br> 히히 많은 관심 부탁드려용 오늘 점심은 삼겹살 시켜먹었는데 맛있더라구요<br> 배부르니 갑자기 잠옵니다 어쨌든 여기 나중에 소개말 쓸게요 60초 후에 공개합니당
+        </section>
+        <footer>
+
+        </footer>
+    </div>
+</body>
+
+</html>
