@@ -9,8 +9,8 @@ app.secret_key = 'WAP_003789632145'
 def main():
     if 'login' in session:
         id =session['login']
-        return render_template('index.html', name = id)
-    return render_template('index.html')
+        return render_template('main.html', name = id)
+    return render_template('main.html')
 
 
 @app.route('/join', methods=['GET', 'POSt'])
@@ -19,9 +19,9 @@ def join():
         id = request.form['id']
         pw = request.form['password']
         name = request.form['username']
-        subname = request.form['usersubname']
+        nickname = request.form['nickname']
         university = request.form.get('select1')
-        email = request.form['usermail']
+        email = request.form['email']
         confirm = request.form['confirm-pw']
 
         #비밀번호 확인
@@ -35,7 +35,7 @@ def join():
             if not id or not pw:
                 return redirect(url_for('join'))
             else:
-                if DB.join(id,pw,name,subname,university,email):
+                if DB.join(id,pw,name,nickname,university,email):
                     return redirect(url_for('join'))
                 else:
                     return redirect(url_for('login'))

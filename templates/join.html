@@ -5,13 +5,7 @@
 <head>
     <title>Join</title>
     <meta charset="UTF-8" />
-    <style>
-        body {
-            background-image: url("{{ url_for('static', filename='1.jpg') }}");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='join.css') }}">
 </head>
 
 <body>
@@ -34,7 +28,7 @@
 
             <p>
                 <label for="email">이메일:</label>
-                <input id="email" type="email" name="usermail">
+                <input id="email" type="email" name="email">
             </p>
 
             <p>
@@ -51,12 +45,12 @@
             </p>
             
             <p>
-                <label for="subname">닉네임:</label>
-                <input id="subname" type="text" name="usersubname">
+                <label for="nickname">닉네임:</label>
+                <input id="nickname" type="text" name="nickname">
             </p>
-            <p>
-                <input type="submit" value="join" />
-            </p>
+            <div class="btn">
+                <button id="btn" type="summit">Sign up</button>
+            </div>
         </fieldset>
 
 </body>

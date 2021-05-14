@@ -14,6 +14,7 @@ class DBModule:
                 }
             firebase = pyrebase.initialize_app(config)
             self.db = firebase.database()
+            
     def join(self,_id_,pw,name,subname,university,email):
         info = {
             "password": pw,

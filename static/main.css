@@ -21,8 +21,10 @@
 }
 
 body {
-    background-color: white;
-    color: #333;
+    font-family: 'Nanum Gothic', sans-serif;
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 header {
