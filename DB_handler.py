@@ -15,13 +15,11 @@ class DBModule:
             firebase = pyrebase.initialize_app(config)
             self.db = firebase.database()
             
-    def join(self,_id_,pw,name,subname,university,email):
+    def join(self,_id_,pw,nickname,university):
         info = {
             "password": pw,
-            "name": name,
-            "subname": subname,
-            "university": university,
-            "email": email
+            "nickname": nickname,
+            "university": university
          }
         self.db.child('user_info').child(_id_).set(info)
 

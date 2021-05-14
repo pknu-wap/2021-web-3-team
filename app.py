@@ -18,10 +18,8 @@ def join():
     if request.method == 'POST':
         id = request.form['id']
         pw = request.form['password']
-        name = request.form['username']
         nickname = request.form['nickname']
         university = request.form.get('select1')
-        email = request.form['email']
         confirm = request.form['confirm-pw']
 
         #비밀번호 확인
@@ -35,7 +33,7 @@ def join():
             if not id or not pw:
                 return redirect(url_for('join'))
             else:
-                if DB.join(id,pw,name,nickname,university,email):
+                if DB.join(id,pw,nickname,university):
                     return redirect(url_for('join'))
                 else:
                     return redirect(url_for('login'))
