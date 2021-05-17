@@ -13,7 +13,7 @@
       
       <div class="int-area">
         <input type="text" name="id" id="id" autocomplete="off" required>
-        <label for="id"> 대학교 학번 </label>
+        <label for="id"> 아이디 </label>
       </div>
       <div class="int-area">
         <input type="password" name="pw" id="pw" autocomplete="off" required>
@@ -28,19 +28,20 @@
     </div>
   </section>
   <script>
-  let id = $('#id');
-  let pw = $('#pw');
-  let btn = $('#btn');
+      let id = $('#id');
+      let pw = $('#pw');
+      let btn = $('#btn');
 
-  $(btn).on ('click', function(){
-    if($(id).val() == ""){
-      $(id).next('label').addClass('warning');
-    }
-    else if($(pw).val() == ""){
-      $(pw).next('label').addClass('warning');
+      $(btn).on ('click', function(){
+        if($(id).val() == ""){
+          $(id).next('label').addClass('warning');
+        }
+        else if($(pw).val() == ""){
+          $(pw).next('label').addClass('warning');
 
-    }
-  });
+        }
+        
+      });
   </script>
 </body>
 </html>
