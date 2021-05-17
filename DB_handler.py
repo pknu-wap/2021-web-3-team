@@ -22,9 +22,6 @@ class DBModule:
             "university": university
          }
         self.db.child('user_info').child(_id_).set(info)
-
-    def register(self,_id_,pw):
-        self.db.child('user_info').child(_id_).set(pw)
     
     def IDcheck(self,_id_):
         data = self.db.child('user_info').get().val()
