@@ -1,0 +1,94 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.background {
+    width: 300px;
+    height: 300px;
+    background-image: url;
+}
+
+.container {
+    width: 1050px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('1.jpg') no-repeat center;
+    background-size: cover;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+header>p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+header>ul {
+    display: flex;
+}
+
+header>ul>li {
+    list-style-type: none;
+    margin-left: 3rem;
+}
+
+header>ul>li>a {
+    text-decoration: none;
+    color: #333;
+}
+
+header>p {
+    color: darkblue;
+}
+
+header>ul>li>a:hover {
+    border-bottom: 5px solid darkblue;
+}
+
+section {
+    padding: 0 3rem;
+    text-align: center;
+    color: #333;
+}
+
+section>p {
+    margin-bottom: 0.5rem;
+}
+
+section>p:first-child {
+    font-size: 6rem;
+    font-weight: 900;
+    color: darkblue;
+}
+
+section>p:nth-of-type(2) {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: black;
+}
+
+section>p:last-of-type {
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: black;
+}
