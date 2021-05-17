@@ -21,16 +21,14 @@ def join():
         nickname = request.form['nickname']
         university = request.form.get('select1')
         confirm = request.form['confirm-pw']
-
-        #비밀번호 확인
-        if pw != confirm:
+        
+        if confirm != pw or nickname == '':
             return redirect(url_for('join'))
-            
         # 아이디 중복 방지
         if DB.IDcheck(id) :
             return redirect(url_for('join'))
         else:
-            if not id or not pw:
+            if not id or not pw :
                 return redirect(url_for('join'))
             else:
                 if DB.join(id,pw,nickname,university):
@@ -46,14 +44,12 @@ def login():
     if request.method == 'POST':
         id = request.form['id']
         pw = request.form['pw']
-        if not id or not pw:
-           return redirect(url_for('login'))
-        else: 
-            if DB.login(id, pw):
-                session['login'] = id
-                return redirect(url_for('main'))
-            else:
-                return redirect(url_for('login'))
+        
+        if DB.login(id, pw):
+            session['login'] = id
+            return redirect(url_for('main'))
+        else:
+            return redirect(url_for('login'))
 
     return render_template('login.html')
 

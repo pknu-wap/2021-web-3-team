@@ -22,8 +22,11 @@
 
 body {
     font-family: 'Nanum Gothic', sans-serif;
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('1.jpg') no-repeat center;
     background-size: cover;
 }
 
@@ -55,11 +58,11 @@ header>ul>li>a {
 }
 
 header>p {
-    color: darkgreen;
+    color: darkblue;
 }
 
 header>ul>li>a:hover {
-    border-bottom: 5px solid green;
+    border-bottom: 5px solid darkblue;
 }
 
 section {
@@ -73,13 +76,13 @@ section>p {
 }
 
 section>p:first-child {
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 900;
-    color: darkgreen;
+    color: darkblue;
 }
 
 section>p:nth-of-type(2) {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 900;
     color: black;
 }
@@ -87,5 +90,5 @@ section>p:nth-of-type(2) {
 section>p:last-of-type {
     font-size: 1.0rem;
     font-weight: 500;
-    color: white;
+    color: black;
 }
