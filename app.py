@@ -22,19 +22,14 @@ def join():
         university = request.form.get('select1')
         confirm = request.form['confirm-pw']
         
-        if confirm != pw or nickname == '':
-            return redirect(url_for('join'))
         # 아이디 중복 방지
         if DB.IDcheck(id) :
             return redirect(url_for('join'))
         else:
-            if not id or not pw :
-                return redirect(url_for('join'))
+            if DB.join(id,pw,nickname,university):
+                return redirect(url_for('login'))
             else:
-                if DB.join(id,pw,nickname,university):
-                    return redirect(url_for('join'))
-                else:
-                    return redirect(url_for('login'))
+                return render_template('join.html')
 
     return render_template('join.html')
 

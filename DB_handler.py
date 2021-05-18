@@ -16,12 +16,17 @@ class DBModule:
             self.db = firebase.database()
             
     def join(self,_id_,pw,nickname,university):
-        info = {
-            "password": pw,
-            "nickname": nickname,
-            "university": university
-         }
-        self.db.child('user_info').child(_id_).set(info)
+        if not _id_ or not pw or not nickname:
+            return False
+        else:
+            info = {
+                "password": pw,
+                "nickname": nickname,
+                "university": university
+            }
+            self.db.child('user_info').child(_id_).set(info)
+            return True
+        
     
     def IDcheck(self,_id_):
         data = self.db.child('user_info').get().val()
