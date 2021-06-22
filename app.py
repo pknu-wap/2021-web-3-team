@@ -20,10 +20,9 @@ def join():
         pw = request.form['password']
         nickname = request.form['nickname']
         university = request.form.get('select1')
-        confirm = request.form['confirm-pw']
         
-        # 아이디 중복 방지
-        if DB.IDcheck(id) :
+        # 아이디 & 닉네임 중복 방지
+        if DB.IDcheck(id) or DB.nickname_check(nickname):
             return redirect(url_for('join'))
         else:
             if DB.join(id,pw,nickname,university):
@@ -42,6 +41,7 @@ def login():
         
         if DB.login(id, pw):
             session['login'] = id
+            session['nickname'] = DB.nickname_get(id)
             return redirect(url_for('main'))
         else:
             return redirect(url_for('login'))
