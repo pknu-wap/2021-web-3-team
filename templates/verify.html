@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+ 
+<head>  
+  <title>OTP Verification</title>  
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='join.css') }}">
+</head> 
+
+<body>  
+  <form action = "/validate" method="post">   
+ <h4> OTP has been sent to the email id. Please check the email for the confirmation.</h4>  
+ Enter OTP(One-time password): <input type="text" name="otp">  
+ <input type="submit" value="확인">  
+ </form>  
+</body> 
+
+</html>   

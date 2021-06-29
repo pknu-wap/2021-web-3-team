@@ -74,3 +74,8 @@ class DBModule:
                 }
             self.db.child('community').child(nickname).child(title).set(data)
             return True
+            
+    #글목록 보여주기
+    def post_list(self):
+        post_list = self.db.child('community').get().val()
+        print(post_list)

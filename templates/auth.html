@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>이메일 인증</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='join.css') }}">
+</head>
+
+<body>
+    <form action="{{url_for('auth')}}" method="POST">
+        <fieldset style="width:250">
+            <legend>개인 정보 입력</legend>
+            <p>
+                Email 주소: <input type="email" name="email"> 
+                <input type = "submit" value="인증번호 발송">  
+            </p>
+        </fieldset>
+    </body>
+</html>

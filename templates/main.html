@@ -12,18 +12,18 @@
                 <p>다온</p>
                 <ul>
                     <li>
-                        <a href="#">게시판
+                        <a href="/post">게시판
                     </a> </li>
                     {% if name %}
                     <li>
-                        <a href="#">{{name}}
+                        <a href="/mypage">{{name}}
                     </a></li>
                     <li>
                         <a href="/logout">로그아웃
                     </a></li>
                     {% else %}
                     <li> 
-                        <a href="/join">회원가입
+                        <a href="/auth">회원가입
                     </a></li>
                     <li>
                         <a href="/login">로그인
