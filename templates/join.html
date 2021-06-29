@@ -9,7 +9,15 @@
 </head>
 
 <body>
+    <form action = "http://localhost:5000/verify" method = "POST">  
+        Email address: <input type="email" name="email">  
+        <input type = "submit" value="Submit">
+
+
     <form action="{{url_for('join')}}" method="POST">
+
+        
+
         <fieldset style="width:250">
             <legend>개인 정보 입력</legend>
             <p>
@@ -21,7 +29,7 @@
                 </optgroup>
             </select>
             </p>
-
+                
             <p>
                 <label for="id">아이디:</label>
                 <input id="id" type="text" name="id">
