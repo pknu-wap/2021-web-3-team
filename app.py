@@ -32,8 +32,9 @@ def join():
         pw = request.form['password']
         nickname = request.form['nickname']
         university = request.form.get('select1')
-        
-        # 아이디 & 닉네임 중복 방지
+
+        DB.nickname_check(nickname)
+        # 아이디 중복 방지, 닉네임 중복방지
         if DB.IDcheck(id) or DB.nickname_check(nickname):
             return redirect(url_for('join'))
         else:
@@ -44,6 +45,34 @@ def join():
 
     return render_template('join.html')
 
+#이메일 인증1 -> @pknu.ac.kr @ks.ac.kr -> javascript에서 특정 단어를 포함하는지 확인
+@app.route('/auth', methods=['GET', 'POST'])
+def auth():
+    if request.method == 'POST':
+        email = request.form['email']
+        if not email:
+            return render_template('auth.html')
+        else:
+            return render_template('verify.html')
+
+    return render_template('auth.html')
+
+#이메일 인증2
+@app.route('/verify', methods=['GET', 'POSt'])
+def verify():
+    email = request.form["email"]   
+    msg = Message('OTP',sender = 'username@gmail.com', recipients = [email])  
+    msg.body = str(otp)  
+    mail.send(msg)  
+    return render_template('verify.html')
+
+#이메일 인증3
+@app.route('/validate',methods=['GET', 'POSt'])   
+def validate():  
+    user_otp = request.form['otp']  
+    if otp == int(user_otp):  
+        return render_template('join.html')
+    return render_template('auth.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -65,29 +94,40 @@ def logout():
     session.pop("login", None)
     return redirect(url_for("main"))
 
-@app.route("/post_list")
-def post_list():
-    post_list = DB.post_list()
+@app.route('/post',methods=["GET", "POST"])
+def post():
+    if 'login' in session:
+        post_list = DB.post_list()
+        
+        return render_template('post.html', post_list=post_list.items())
+    else:
+        return render_template('login.html')
 
-    return render_template("post_list.html", post_list = post_list)
+# 게시물 내용 보기
+@app.route('post/<string:nickname><string:title>')
+def post_detail(nickname, title):
+    pass
 
-@app.route('/verify',methods = ["POST"])  
-def verify():  
-    email = request.form["email"]   
-    msg = Message('OTP',sender = 'username@gmail.com', recipients = [email])  
-    msg.body = str(otp)  
-    mail.send(msg)  
-    # s = smtplib.SMTP_SSL('username@gmail.com')
-    # s.sendmail(msg)
-    return render_template('verify.html')  
 
-@app.route('/validate',methods=["POST"])   
-def validate():  
-    user_otp = request.form['otp']  
-    if otp == int(user_otp):  
-        return "<h3> Email  verification is  successful </h3>"  
-    return "<h3>failure, OTP does not match</h3>"   
+@app.route('/write_page',methods=["GET", "POST"])
+def write_page():
+    return render_template('write.html')
+    
 
+@app.route('/write',methods=["GET", "POST"])
+def write():
+    if request.method == 'POST':       
+        title=request.form['title']
+        contents=request.form['contents']
+
+        if(DB.write(session['nickname'],title,contents)):
+            return redirect(url_for('post'))
+        else:
+            return redirect(url_for('write'))
+
+@app.route('/mypage',methods=["GET", "POST"])
+def mypage():
+    return render_template('mypage.html')
 
 if __name__ =='__main__':
     app.run(debug=True)

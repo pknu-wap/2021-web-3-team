@@ -77,6 +77,10 @@ class DBModule:
             return True
 
     def post_list(self):
-        post_list = self.db.child('community').get().val()
-        print(post_list)
+        post_list = self.db.child('community').child().get().val()
+        return post_list
+    
+
+
+
         
