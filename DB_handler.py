@@ -64,19 +64,19 @@ class DBModule:
             return nick_get
 
     #글쓰기
-    def write(self,nickname,title,contents):
-        if not title or not contents:
+    def write(self,nickname,title,content):
+        if not title or not content:
             return False
         else:
-            Date = datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+            Date = datetime.today().strftime("%Y%m%d %H:%M:%S")
             data1 = {
-                "Contents":contents,
+                "Contents":content,
                 "Date":datetime.today().strftime("%Y/%m/%d %H:%M:%S")
                 }
             
             data2 = {
                 "Title":title,
-                "Contents":contents,
+                "Contents":content,
                 "NickName":nickname
             }
             
