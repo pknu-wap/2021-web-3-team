@@ -68,13 +68,22 @@ class DBModule:
         if not title or not contents:
             return False
         else:
-            data = {
+            Date = datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+            data1 = {
                 "Contents":contents,
                 "Date":datetime.today().strftime("%Y/%m/%d %H:%M:%S")
                 }
-            self.db.child('community').child(nickname).child(title).set(data)
-            return True
             
+            data2 = {
+                "Title":title,
+                "Contents":contents,
+                "NickName":nickname
+            }
+            
+            self.db.child('community').child(nickname).child(title).set(data1) #닉네임 기준 DB
+            self.db.child('post').child(Date).set(data2) #날짜 기준 DB
+            return True
+
     #글목록 보여주기
     def post_list(self):
         post_list = self.db.child('community').get().val()
