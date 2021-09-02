@@ -13,7 +13,11 @@
       </div>
       <div class="btn-area">
         <button write="btn"
-         type="button" onClick="location.href='/write_page'">글쓰기</button>
+         type="button" onClick="location.href='/write'">글쓰기</button>
+      </div>
+      <div class="btn-area">
+        <button write="btn"
+         type="button" onClick="location.href='/mypost'">내 글 보기</button>
       </div>
       <ul class="suggestions">
       </ul>
@@ -30,29 +34,37 @@
                         <th>제목</th>
                         <th>글쓴이</th>
                         <th>작성일</th>
-                        <th>조회</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
 
-                    {% for key, value in post_list %}
-                    {% for title in value %}
+                    {% for key, value in post_list%}
                     
+                
+                    
+
                     <tr>
                         <td>{{loop.index}}</td>
                         <td class="tit">
-                            {{title}}
-                            <a href="#">            </a>
+                            {{value['Title']}}
+                            <a href=#>            </a>
                         </td>
+                        <td>   {{value['NickName']}} </td>
                         <td>   {{key}} </td>
-                        <td>   {{value[title].Date}} </td>
-                        <td>      </td>
-                        {% endfor %}
+                        <td>   </td>
+                        
                         {% endfor %}
                         
+                    
                         
+                        
+                        
+                    
+                        
+                    
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>2</td>
                         <td class="tit">
                             <a href="#">            </a>
@@ -87,7 +99,7 @@
                         <td>       </td>
                         <td>       </td>
                         <td>       </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             <div class="paging">
