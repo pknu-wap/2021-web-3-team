@@ -2,6 +2,8 @@ from flask import Flask, redirect,render_template,url_for,request,session
 from DB_handler import DBModule;
 from flask_mail import *
 from random import *  
+import datetime
+from collections import OrderedDict
 
 DB = DBModule()
 app = Flask(__name__)
@@ -49,24 +51,19 @@ def join():
 @app.route('/auth', methods=['GET', 'POST'])
 def auth():
     if request.method == 'POST':
-        email = request.form['email']
-        if not email:
+        per_email = request.form['email']
+        if not per_email:
             return render_template('auth.html')
         else:
+            msg = Message('DAON OTP 인증번호 발송',sender = 'daon@gmail.com', recipients = [per_email])  
+            msg.body = str(otp)  
+            mail.send(msg)
+            session['email'] = per_email  
             return render_template('verify.html')
 
     return render_template('auth.html')
 
 #이메일 인증2
-@app.route('/verify', methods=['GET', 'POSt'])
-def verify():
-    email = request.form["email"]   
-    msg = Message('OTP',sender = 'username@gmail.com', recipients = [email])  
-    msg.body = str(otp)  
-    mail.send(msg)  
-    return render_template('verify.html')
-
-#이메일 인증3
 @app.route('/validate',methods=['GET', 'POSt'])   
 def validate():  
     user_otp = request.form['otp']  
@@ -94,36 +91,48 @@ def logout():
     session.pop("login", None)
     return redirect(url_for("main"))
 
+# 전체 게시물 목록 보기
 @app.route('/post',methods=["GET", "POST"])
 def post():
+    post_list = DB.post_list()
     if 'login' in session:
-        post_list = DB.post_list()
-        
-        return render_template('post.html', post_list=post_list.items())
+        return render_template('post.html', 
+        post_list = OrderedDict(sorted(post_list.items(), key=lambda x: x[0], reverse=True)).items()) # 날짜 시간 순서대로
     else:
         return render_template('login.html')
 
 # 게시물 내용 보기
-@app.route('post/<string:nickname><string:title>')
-def post_detail(nickname, title):
-    pass
+# @app.route('post/<string:title><string:Date>')
+# def post_detail(title, Date):
+#     mypost_list = OrderedDict(mypost_list.items(), key=session['nickname'])
+#     return render_template('post_detail.html', mypost_list=mypost_list.items())
+
+# 내가 작성한 게시물 목록 보기
+@app.route('/mypost')
+def mypost():
+    nickname = session['nickname']
+    mypost_list = DB.mypost_list(nickname)
+    return render_template('mypost.html', 
+    mypost_list=OrderedDict(sorted(mypost_list.items(), key=lambda x: x[1]['Date'], reverse=True)).items()) # 날짜 시간 순서대로
 
 
-@app.route('/write_page',methods=["GET", "POST"])
-def write_page():
-    return render_template('write.html')
+# @app.route('/write_page',methods=["GET", "POST"])
+# def write_page():
+#     return render_template('write.html')
     
 
 @app.route('/write',methods=["GET", "POST"])
 def write():
     if request.method == 'POST':       
         title=request.form['title']
-        contents=request.form['contents']
+        content=request.form['content']
 
-        if(DB.write(session['nickname'],title,contents)):
+        if(DB.write(session['nickname'],title,content)):
             return redirect(url_for('post'))
         else:
-            return redirect(url_for('write'))
+            return redirect(url_for('writtingpage'))
+    return render_template('writtingpage.html')
+
 
 @app.route('/mypage',methods=["GET", "POST"])
 def mypage():
