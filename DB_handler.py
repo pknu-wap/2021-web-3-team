@@ -65,20 +65,35 @@ class DBModule:
             return nick_get
 
     #글쓰기
-    def write(self,nickname,title,contents):
-        if not title or not contents:
+    def write(self,nickname,title,content):
+        if not title or not content:
             return False
         else:
-            data = {
-                "Contents":contents,
+            Date = datetime.today().strftime("%Y%m%d %H:%M:%S")
+            data1 = {
+                "Contents":content,
                 "Date":datetime.today().strftime("%Y/%m/%d %H:%M:%S")
                 }
-            self.db.child('community').child(nickname).child(title).set(data)
+            
+            data2 = {
+                "Title":title,
+                "Contents":content,
+                "NickName":nickname
+            }
+            self.db.child('community').child(nickname).child(title).set(data1) #닉네임 기준 DB
+            self.db.child('post').child(Date).set(data2) #날짜 기준 DB
             return True
 
+    # 글 목록(닉네임 기준 DB) -> post
     def post_list(self):
-        post_list = self.db.child('community').child().get().val()
+        post_list = self.db.child('post').child().get().val()
         return post_list
+
+    # 글 목록(날짜 기준 DB) -> mypost
+    def mypost_list(self, nickname):
+        mypost_list = self.db.child('community').child(nickname).get().val()
+        return mypost_list
+
     
 
 
