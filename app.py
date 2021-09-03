@@ -2,6 +2,8 @@ from flask import Flask, redirect,render_template,url_for,request,session
 from flask_mail import Mail, Message #설치 필요 pip install Flask-Mail
 from DB_handler import DBModule;
 from random import *
+import datetime
+from collections import OrderedDict
 
 DB = DBModule()
 app = Flask(__name__)
@@ -93,14 +95,23 @@ def logout():
     session.pop("login", None)
     return redirect(url_for("main"))
 
-#게시판
+# 전체 게시물 목록 보기
 @app.route('/post',methods=["GET", "POST"])
 def post():
+    post_list = DB.post_list()
     if 'login' in session:
-        post_list = DB.post_list()
-        return render_template('post.html', post_list=post_list.items())
+        return render_template('post.html', 
+        post_list = OrderedDict(sorted(post_list.items(), key=lambda x: x[0], reverse=True)).items()) # 날짜 시간 순서대로
     else:
         return render_template('login.html')
+
+# 내가 작성한 게시물 목록 보기
+@app.route('/mypost')
+def mypost():
+    nickname = session['nickname']
+    mypost_list = DB.mypost_list(nickname)
+    return render_template('mypost.html', 
+    mypost_list=OrderedDict(sorted(mypost_list.items(), key=lambda x: x[1]['Date'], reverse=True)).items()) # 날짜 시간 순서대로
 
 # 게시물 내용 보기
 #@app.route('post/<string:nickname><string:title>')
@@ -109,7 +120,7 @@ def post():
 
 @app.route('/write_page',methods=["GET", "POST"])
 def write_page():
-    return render_template('writing.html')
+    return render_template('writting.html')
     
 @app.route('/write',methods=["GET", "POST"])
 def write():
@@ -119,12 +130,9 @@ def write():
 
         if(DB.write(session['nickname'],title,content)):
             return redirect(url_for('post'))
-        else:
-            return redirect(url_for('writing_page'))
-
-@app.route('/mypage',methods=["GET", "POST"])
-def mypage():
-    return render_template('mypage.html')
+        else:                    
+            return render_template('writtingpage.html')
+    return render_template('writtingpage.html')
 
 if __name__ =='__main__':
     app.run(debug=True)

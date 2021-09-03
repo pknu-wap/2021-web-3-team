@@ -84,7 +84,12 @@ class DBModule:
             self.db.child('post').child(Date).set(data2) #날짜 기준 DB
             return True
 
-    #글목록 보여주기
+    # 글 목록(닉네임 기준 DB) -> post
     def post_list(self):
-        post_list = self.db.child('community').get().val()
-        print(post_list)
+        post_list = self.db.child('post').child().get().val()
+        return post_list
+
+    # 글 목록(날짜 기준 DB) -> mypost
+    def mypost_list(self, nickname):
+        mypost_list = self.db.child('community').child(nickname).get().val()
+        return mypost_list
