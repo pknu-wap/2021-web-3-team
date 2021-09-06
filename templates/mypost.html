@@ -5,16 +5,22 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <a class="navbar-brand" href="{{ url_for('main') }}">DAON</a>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
       <form class="search-form">
       <input type="text" class="search" placeholder="검색어를 입력하세요"/>
       <div class="btn-area">
-        <button search="btn"
-         type="submit">검색</button>
+        <button search="btn" type="submit">검색</button>
       </div>
-      <div class="btn-area">
+      <!--<div class="btn-area">
         <button write="btn"
          type="button" onClick="location.href='/write_page'">글쓰기</button>
-      </div>
+      </div>-->
       <div class="btn-area">
         <button write="btn"
          type="button" onClick="location.href='/post'">글 목록</button>
@@ -26,7 +32,8 @@
             <table class="board_list">
 
               <h1>다온 학우 고민상담</h1>
-              <h2>익명이라도 서로 비방하는 글 금지</h2>
+
+              <h2>{{ name }} 글 목록</h2>
                 <caption>게시판 목록</caption>
                 <thead>
                     <tr>
@@ -41,12 +48,10 @@
                     {% for title, value in mypost_list %}
                     {# % for v in value % #}
                     
-
 <tr>
                         <td>{{loop.index}}</td>
                         <td class="tit">
-                            {{title}}
-                            <a href="#">            </a>
+                            <a href="/post/{{title}}">{{title}} </a>
                         </td>
                         <td>   {{session['nickname']}} </td>
                         <td>   {{value.Date}}</td>
