@@ -4,7 +4,18 @@
         <title>학우 고민상담 게시판 목록</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
     </head>
+
     <body>
+    <!--홈버튼 로고 추가-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <a class="navbar-brand" href="{{ url_for('main') }}">DAON</a>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        
+
       <form class="search-form">
       <input type="text" class="search" placeholder="검색어를 입력하세요"/>
       <div class="btn-area">
@@ -43,8 +54,7 @@
                     <tr>
                         <td>{{loop.index}}</td>
                         <td class="tit">
-                            {{value['Title']}}
-                            <a href=#>            </a>
+                            <a href="/post/{{value.Title}}">{{value['Title']}} </a>
                         </td>
                         <td>   {{value['NickName']}} </td>
                         <td>   {{key}} </td>

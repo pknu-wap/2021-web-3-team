@@ -43,6 +43,19 @@ class DBModule:
         if NICKNAME != None:
             return True  
     
+    #이메일 확인
+    def email_check(self, email):
+        email_address = email.split("@")[1]
+
+        filter_key = {
+            'allow' : ['pukyong.ac.kr', 'ks.ac.kr'],
+        }
+        
+        if( email_address in filter_key["allow"]):
+            return True
+        else:
+            return False
+
     #로그인
     def login(self,_id_,pw):
         PASSWORD = self.db.child('user_info').child(_id_).get().val()
@@ -64,20 +77,22 @@ class DBModule:
             return nick_get
 
     #글쓰기
-    def write(self,nickname,title,content):
+    def write(self,nickname,title,content,open_url):
         if not title or not content:
             return False
         else:
             Date = datetime.today().strftime("%Y%m%d %H:%M:%S")
             data1 = {
-                "Contents":content,
-                "Date":datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+                "Content":content,
+                "Date":datetime.today().strftime("%Y/%m/%d %H:%M:%S"),
+                "Open_url":open_url
                 }
             
             data2 = {
                 "Title":title,
-                "Contents":content,
-                "NickName":nickname
+                "Content":content,
+                "NickName":nickname,
+                "Open_url":open_url
             }
             
             self.db.child('community').child(nickname).child(title).set(data1) #닉네임 기준 DB
@@ -93,3 +108,18 @@ class DBModule:
     def mypost_list(self, nickname):
         mypost_list = self.db.child('community').child(nickname).get().val()
         return mypost_list
+
+    #글읽기
+    def post_detail(self,_id_):
+        for nickname in self.db.child('community').get().val():
+            print(nickname)
+            post_detail = self.db.child('community').child(nickname).child(_id_).get().val()
+            print(post_detail, _id_)
+            try:
+                if post_detail != None:
+                    return post_detail, nickname
+                else:
+                    pass
+            except:
+                return False
+

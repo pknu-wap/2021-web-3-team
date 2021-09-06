@@ -18,9 +18,12 @@
                 </div> 
             </p>
             <br>
-            <p>부경대학생 @pknu.ac.kr</p>
+            <p>부경대학생 @pukyong.ac.kr</p>
             <p>경성대학생 @ks.ac.kr</p>
         </fieldset>
+        {% if error %}
+            {{error}}
+        {% endif %}
     </body>
     
     <script src="../static/auth.js?ver=123">

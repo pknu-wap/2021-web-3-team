@@ -17,6 +17,7 @@ app.config['MAIL_PASSWORD'] = '*****'
 app.config['MAIL_USE_TLS'] = False  
 app.config['MAIL_USE_SSL'] = True  
 mail = Mail(app)  
+otp = 0
 otp = randint(000000,999999)
 
 #홈
@@ -57,11 +58,15 @@ def auth():
         if not per_email:
             return render_template('auth.html')
         else:
-            msg = Message('DAON OTP 인증번호 발송',sender = 'daon@gmail.com', recipients = [per_email])  
-            msg.body = str(otp)  
-            mail.send(msg)
-            session['email'] = per_email  
-            return render_template('verify.html')
+            if(DB.email_check(per_email)):
+                msg = Message('DAON OTP 인증번호 발송',sender = 'daon@gmail.com', recipients = [per_email])  
+                msg.body = str(otp)  
+                mail.send(msg)
+                session['email'] = per_email  
+                return render_template('verify.html')
+            else:
+                error = "학교 이메일을 입력해 주세요!"
+                return render_template('auth.html', error=error)
 
     return render_template('auth.html')
 
@@ -108,27 +113,33 @@ def post():
 # 내가 작성한 게시물 목록 보기
 @app.route('/mypost')
 def mypost():
+    id =session['login']
     nickname = session['nickname']
     mypost_list = DB.mypost_list(nickname)
-    return render_template('mypost.html', 
+    return render_template('mypost.html', name = id,
     mypost_list=OrderedDict(sorted(mypost_list.items(), key=lambda x: x[1]['Date'], reverse=True)).items()) # 날짜 시간 순서대로
 
 # 게시물 내용 보기
 #@app.route('post/<string:nickname><string:title>')
 #def post_detail(nickname, title):
     pass
+@app.route('/post/<string:id>')   
+def post_detail(id):
+    post, nickname = DB.post_detail(id)
+    return render_template('post_detail.html', post=post, _id_=id, nickname=nickname)
+#@app.route('/write_page',methods=["GET", "POST"])
+#def write_page():
+#    return render_template('writting.html')
 
-@app.route('/write_page',methods=["GET", "POST"])
-def write_page():
-    return render_template('writting.html')
-    
+#글쓰기   
 @app.route('/write',methods=["GET", "POST"])
 def write():
     if request.method == 'POST':       
         title=request.form['title']
         content=request.form['content']
+        open_url=request.form['open_url']
 
-        if(DB.write(session['nickname'],title,content)):
+        if(DB.write(session['nickname'],title,content,open_url)):
             return redirect(url_for('post'))
         else:                    
             return render_template('writtingpage.html')

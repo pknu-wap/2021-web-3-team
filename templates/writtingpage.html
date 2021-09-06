@@ -27,7 +27,6 @@
 
 		e.preventDefault();
 
-		location.href="${pageContext.request.contextPath}/board/getBoardList";
 
 	});
 
@@ -58,7 +57,7 @@ body {
 
 					<label for="title">제목</label>
 
-					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" required>
 
 				</div>
 
@@ -67,7 +66,7 @@ body {
 
 					<label for="content">내용</label>
 
-					<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+					<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" required></textarea>
 
 				</div>
 
@@ -75,16 +74,16 @@ body {
 
 					<label for="open_url">오픈채팅 url</label>
 
-					<input type="url" class="form-control" name="open_url" id="open_url" placeholder="카카오톡 오픈채팅 url주소를 입력해 주세요">
+					<input type="url" class="form-control" name="open_url" id="open_url" placeholder="카카오톡 오픈채팅 url주소를 입력해 주세요" required>
 
 				</div>
 
 			</form>
 
 			<div >
-				<button type="button" class="btn btn-sm btn-primary" id="btnSave" onclick="location.href='post.html'">저장</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnSave" onclick="location.href='/post'">저장</button>
 
-				<button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.href='post.html'">목록</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="location.href='/post'">목록</button>
 
 			</div>
 

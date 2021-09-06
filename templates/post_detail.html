@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{_id_}} 게시글 상세내용</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
+    
+</head>
+<body>
+    <!--홈버튼 로고 추가-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <a class="navbar-brand" href="{{ url_for('main') }}">DAON</a>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    
+    <div class="btn-area">
+        <button write="btn"
+         type="button" onClick="location.href='/post'">글 목록</button>
+    </div>
+
+    <div class="board_list_wrap">
+        <table class="board_list">
+            <caption>상세보기</caption>
+            <colgroup>
+                <col width="15%">
+                <col width="35%">
+                <col width="15%">
+                <col width="*">
+            </colgroup>
+            
+            <tbody>
+                <tr>
+                    <th>제목</th>
+                    <td>{{_id_}}</td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    <td>{{nickname}}</td>
+                </tr>
+                <tr>
+                    <th>작성시간</th>
+                    <td>{{post.Date}}</td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>{{post.Content}}</td>
+                </tr>
+                <tr>
+                    <th>오픈채팅주소</th>
+                    <td class="tit">
+                        <a href="{{post.Open_url}}" target='_blank'>{{post.Open_url}} </a>
+                    </td>
+                </tr>
+            </tbody>
+    </div>
+        </table>
+
+</body>
+</html>
